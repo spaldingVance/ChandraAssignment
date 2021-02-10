@@ -29,8 +29,14 @@ public class UserController {
 	BcryptGenerator bcryptGenerator;
 
 	@GetMapping("/{userid}")
-	public User getUser(@PathVariable @Valid String userid) {
-		return userService.findById(userid);
+	public ResponseEntity<?> getUser(@PathVariable @Valid String userid) {
+		User user = userService.findById(userid);
+		if (user != null) {
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		} else {
+			return (ResponseEntity<?>) ResponseEntity.notFound();
+		}
+		
 	}
 
 	@PostMapping("/register")
