@@ -19,9 +19,10 @@ import lombok.Setter;
 @Table(name="users")
 public class User {
 	@Id
-	@Column(unique = true)
+	@Column(nullable = false, unique = true)
 	@NotNull
 	private String userid;
+	@Column(nullable = false)
 	private String name;
 	private int age;
 	private String password;

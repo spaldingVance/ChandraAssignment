@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,10 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import com.example.demo.config.BcryptGenerator;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
@@ -24,9 +24,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	BcryptGenerator bcryptGenerator;
 
 	@GetMapping("/{userid}")
 	public ResponseEntity<?> getUser(@PathVariable @Valid String userid) {
@@ -58,8 +55,10 @@ public class UserController {
 
 		String existingPassword = UseridExists.getPassword();
 		String currentPassword = user.getPassword();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		return passwordEncoder.matches(currentPassword, ExistingPassword);
 
-		if (bcryptGenerator.passwordDecoder(currentPassword, existingPassword)) {
+		if (passwordEncoder.matches(currentPassword, existingPassword)) {
 			return new ResponseEntity<String>("Logged In Successfully", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("Incorrect Username or Password", HttpStatus.UNAUTHORIZED);
