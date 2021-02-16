@@ -38,6 +38,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<String> registerUser(@Valid User user) {
+		System.out.println("at /user/register");
 		User registeredUser = userService.saveNewUser(user);
 		
 		if(registeredUser != null) {
@@ -50,7 +51,8 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> loginUser(@Valid @RequestBody User user) {
+	public ResponseEntity<String> loginUser(@Valid User user) {
+		System.out.println("Logging in~~~~~");
 		User UseridExists = userService.findById(user.getUserid());
 
 		String existingPassword = UseridExists.getPassword();

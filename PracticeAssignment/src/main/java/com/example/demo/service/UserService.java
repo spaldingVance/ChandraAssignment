@@ -12,8 +12,10 @@ public class UserService {
 	UserRepository userRepository;
 
 	public User saveNewUser(User newUser) {
+		System.out.println("got to here");
 		User user = userRepository.save(newUser);
 		return user;
+
 	}
 
 	public User findById(String userid) {

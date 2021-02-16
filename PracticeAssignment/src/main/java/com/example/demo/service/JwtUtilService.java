@@ -98,12 +98,12 @@ public class JwtUtilService {
 		logger.info(String.valueOf(claims));
 		Boolean isAdmin = claims.get("isAdmin", Boolean.class);
 		Boolean isUser = claims.get("isUser", Boolean.class);
-		if (isAdmin != null && isAdmin == true) {
-			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		}
-		if (isUser != null && isUser == true) {
+//		if (isAdmin != null && isAdmin == true) {
+//			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//		}
+//		if (isUser != null && isUser == true) {
 			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-		}
+//		}
 		return roles;
 	}
 
