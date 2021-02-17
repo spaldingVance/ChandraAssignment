@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +66,17 @@ public class UserController {
 		} else {
 			return new ResponseEntity<String>("Incorrect Username or Password", HttpStatus.UNAUTHORIZED);
 		}
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<String> updateUser(@Valid User user) {
+		User registeredUser = userService.updateUser(user);
+		if(registeredUser != null) {
+			return new ResponseEntity<String>("User Updated", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 
 }

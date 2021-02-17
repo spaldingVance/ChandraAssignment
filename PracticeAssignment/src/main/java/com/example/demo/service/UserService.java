@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class UserService {
 	public User findById(String userid) {
 		User user = userRepository.findByUserid(userid);
 		return user;
+	}
+
+	public User updateUser(@Valid User user) {
+		User updatedUser = userRepository.save(user);
+		return updatedUser;
 	}
 }
 

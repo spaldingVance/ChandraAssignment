@@ -88,6 +88,8 @@ public class JwtUtilService {
 	public User getLoggedInUser(HttpServletRequest request) {
 		String token = extractJwtFromRequest(request);
 		String userid = getUseridFromToken(token);
+		
+		logger.info("in getLoggedInUser() userid: " + userid);
 
 		return userRepository.findByUserid(userid);
 	}
