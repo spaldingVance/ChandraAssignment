@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.NewUserRequest;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
@@ -25,8 +26,19 @@ public class UserService {
 		return user;
 	}
 
-	public User updateUser(@Valid User user) {
-		User updatedUser = userRepository.save(user);
+	public User updateUser(@Valid NewUserRequest user) {
+		
+		User userInDb = userRepository.findByUserid(user.getUserid());
+		System.out.println(user.getName());
+		userInDb.setName(user.getName());
+		userInDb.setAge(user.getAge());
+		userInDb.setPassword(user.getPassword());
+		userInDb.setUserid(user.getUserid());
+		System.out.println(userInDb.getName());
+		System.out.println(userInDb.getAge());
+		System.out.println(userInDb.getPassword());
+		System.out.println(userInDb.getUserid());
+		User updatedUser = userRepository.save(userInDb);
 		return updatedUser;
 	}
 }

@@ -88,16 +88,6 @@ public class AuthenticationController {
 
 	@PostMapping("/authenticate/new")
 	public User createNewUser(@RequestBody NewUserRequest newUserRequest) {
-		System.out.println(newUserRequest);
-		System.out.println(newUserRequest.getUserid());
-		System.out.println(newUserRequest.getName());
-		System.out.println(newUserRequest.getPassword());
-		System.out.println(newUserRequest.getAge());
-		System.out.println(newUserRequest.getRole());
-
-//		User newUser = new User(newUserRequest.getUserName(), newUserRequest.getFirstName(),
-//					newUserRequest.getLastName(), "USER", newUserRequest.getEmail(), newUserRequest.getPassword());
-
 		User newUser = new User();
 		newUser.setUserid(newUserRequest.getUserid());
 		newUser.setName(newUserRequest.getName());

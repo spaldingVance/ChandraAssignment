@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.NewUserRequest;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -47,8 +48,6 @@ public class UserController {
 		} else {
 			return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		
 	}
 
 	@PostMapping("/login")
@@ -68,9 +67,12 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/update")
-	public ResponseEntity<String> updateUser(@Valid User user) {
-		User registeredUser = userService.updateUser(user);
+	@PostMapping("/update")
+	public ResponseEntity<String> updateUser(@Valid @RequestBody NewUserRequest userRequest) {
+		User user = userService.findById(userRequest.getUserid());
+		System.out.println("IN /user/update route");
+		System.out.println("Userid: " + userRequest.getUserid());
+		User registeredUser = userService.updateUser(userRequest);
 		if(registeredUser != null) {
 			return new ResponseEntity<String>("User Updated", HttpStatus.OK);
 		} else {
@@ -78,5 +80,6 @@ public class UserController {
 		}
 		
 	}
+	
 
 }

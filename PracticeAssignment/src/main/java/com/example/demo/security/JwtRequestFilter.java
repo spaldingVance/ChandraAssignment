@@ -36,7 +36,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		if (jwtToken != null && jwtUtilService.validateToken(jwtToken)) {
 			UserDetails userDetails = new User(jwtUtilService.getUseridFromToken(jwtToken), "", jwtUtilService.getRolesFromToken(jwtToken));
 			
-			logger.info("Reached to here");
+			logger.info("Inside JWT Request Filter");
 			
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 					userDetails, null, userDetails.getAuthorities());
